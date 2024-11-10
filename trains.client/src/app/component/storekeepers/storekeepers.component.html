@@ -1,0 +1,43 @@
+<h1 id="tableLabel">Storekeepers</h1>
+
+
+<p *ngIf="loading">loading....</p>
+
+<p *ngIf="!completeLoad&&!loading">error with loading data, chek your server and <a href="/storekeepers">refresh</a> this page</p>
+
+<div class="tableforms" *ngIf="completeLoad&&!loading">
+  <div class="table-responsive">
+    <table >
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>name</th>
+          <th>countDetails</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let storekeeper of storekeepers; trackBy: trackStorekeepers">
+          <td>{{ storekeeper.id }}</td>
+          <td>{{ storekeeper.number }}</td>
+          <td>{{ storekeeper.roadId }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!--<div style="padding:20px">
+
+    <div style="padding:10px">
+      <label>Add storekeeper</label><br />
+      <input width="50" type="text" [(ngModel)]="storekeeper.fullName" placeholder="Full name" />
+      <button (click)="postStorekeeper()">Add</button>
+    </div>
+    <div style="padding:10px">
+      <label>Delete storekeeper</label><br />
+      <input width="50" type="number" [(ngModel)]="storekeeper_id" placeholder="Storekeeper id" />
+      <button (click)="deleteStorekeeper()">Delete</button>
+    </div>
+    <div>
+      <label [style]="messageStyle" style="font-size:18px">{{messageText}}</label>
+    </div>
+  </div>-->
+</div>

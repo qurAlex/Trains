@@ -1,0 +1,89 @@
+<h1 id="tableLabel">Details</h1>
+
+
+<p *ngIf="loading">loading....</p>
+
+<p *ngIf="!completeLoad&&!loading">error with loading data, chek your server and <a href="/details">refresh</a> this page</p>
+
+<div class="tableforms" *ngIf="completeLoad&&!loading">
+  <div class="table-responsive">
+    <table >
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>code</th>
+          <th width="250">name</th>
+          <th>count</th>
+          <th>storekeeper</th>
+          <th>date create</th>
+          <th>date delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr  *ngFor="let detail of details; trackBy: trackDetails">
+          <td>{{ detail.id }}</td>
+          <td>{{ detail.itemCode }}</td>
+          <td>{{ detail.itemName }}</td>
+          <td>{{ detail.count }}</td>
+          <td>{{ detail.storekeeper.fullName}}</td>
+          <td>{{ detail.dateCreate }}</td>
+          <td>{{ detail.dateDelete }}</td>
+          
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+
+    <div style="padding:10px">
+      <label>Add detail</label><br />
+      <table>
+        <tbody>
+          <tr>
+            <td>code</td>
+            <td>
+              <input [(ngModel)]="detail.itemCode" type="text" />
+            </td>
+          </tr>
+          <tr>
+            <td>name</td>
+            <td>
+              <input [(ngModel)]="detail.itemName" type="text" />
+            </td>
+          </tr>
+          <tr>
+            <td>count</td>
+            <td>
+              <input [(ngModel)]="detail.count" type="number" />
+            </td>
+          </tr>
+          <tr>
+            <td>storekeeper</td>
+            <td>
+              <select [(ngModel)]="detail.storekeeperId">
+                <option value="">...</option>
+                <option *ngFor="let storekeeper of storekeepers" value="{{storekeeper.id}}">{{storekeeper.fullName}}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>date create</td>
+            <td>
+              <input [(ngModel)]="detail.dateCreate" type="date" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button (click)="postDetail()">Add</button>
+    </div>
+    <div style="padding:10px">
+      <label>Delete detail</label><br />
+      <input type="number" [(ngModel)]="detail_id" placeholder="Detail id" />
+      <button (click)="deleteDetail()">Delete</button>
+    </div>
+    <div>
+      <label [style]="messageStyle" style="font-size:18px">{{messageText}}</label>
+    </div>
+  </div>
+</div>
+  
