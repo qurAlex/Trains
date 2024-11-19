@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { ITrain } from "../models/train";
 import { IStation } from "../models/station";
 import { Observable } from "rxjs";
+import { IDirection } from "../models/direction";
 
 @Injectable({
   providedIn: 'root'
@@ -12,36 +13,32 @@ export class TrainsService {
   constructor(private http: HttpClient) { }
 
 
-  getTrains(): Observable<any[]> {
-    return this.http.get<any[]>("api/trains/");
+  getTrains(): Observable<ITrain[]> {
+    return this.http.get<ITrain[]>("api/trains/getTrains");
   }
 
-  //todo refactor
-
-  getDetails(): Observable<ITrain[]> {
-    return this.http.get<ITrain[]>("api/store/details");
+  getTrain(id: number): Observable<ITrain> {
+    return this.http.get<ITrain>("api/trains/getTrain?id=" + id);
   }
 
-  getStrorekeepers(): Observable<IStation[]> {
-    return this.http.get<IStation[]>("api/store/storekeepers");
+  addTrain(train: ITrain) {
+    return this.http.post("api/trains/addTrain", train);
   }
 
-  postDetail(detail: IStation) {
-    return this.http.post("api/store/detail/", detail, { observe: 'response', headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
+  getStations(): Observable<IStation[]> {
+    return this.http.get<IStation[]>("api/trains/getStations");
   }
 
-  postStorekeeper(storekeeper: ITrain) {
-    return this.http.post("api/store/storekeeper/", storekeeper, { observe: 'response', headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
-
+  addStation(station: IStation) {
+    return this.http.post("api/trains/addStation", station);
   }
 
-  deleteStorekeeper(id: number) {
-    return this.http.delete("api/store/storekeeper/" + id, { observe: 'response' });
 
+  getDirections(): Observable<IDirection[]> {
+    return this.http.get<IDirection[]>("api/trains/getDirections");
   }
 
-  deleteDetail(id: number) {
-    return this.http.delete("api/store/detail/" + id, { observe: 'response' });
+  addDirection(direction: IDirection) {
+    return this.http.post("api/trains/addDirection", direction);
   }
-
 }
